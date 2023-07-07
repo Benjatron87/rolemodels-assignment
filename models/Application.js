@@ -55,7 +55,7 @@ export default class Application {
 
   _defaultDirectionalLight() {
     const light = new THREE.DirectionalLight(0xffffff, 0.5)
-    light.position.set(1, 3, -5)
+    light.position.set(-1, -3, -5)
     return light
   }
 
@@ -71,7 +71,7 @@ export default class Application {
     if (this._orbitControlsActive) return
 
     this._orbitControlsActive = true
-    this.camera().position.set(12, 16, -16)
+    this.camera().position.set(-12, -16, -16)
     this.controls().enableRotate = true
   }
 
@@ -100,15 +100,23 @@ export default class Application {
     this.scene().add(shapeMesh)
   }
 
-  add3DShape(geometry, color) {
+  add3DShape(geometry, color, rotation) {
     this.enableLighting()
     this.enableOrbitControls()
 
     const material = new THREE.MeshStandardMaterial({
-      color: color
+      color: color,
+      side: THREE.DoubleSide
     })
 
     const shapeMesh = new THREE.Mesh(geometry, material)
+
+    if(rotation){
+      shapeMesh.rotation.x = rotation.x;
+      shapeMesh.rotation.y = rotation.y;
+      shapeMesh.rotation.z = rotation.z;
+    }
+
     this.scene().add(shapeMesh)
   }
 
@@ -126,7 +134,6 @@ export default class Application {
         node.remove(child)
       })
     }
-    this._orbitControlsActive = undefined
     this._lightingEnabled = undefined
   }
 

@@ -6,7 +6,7 @@ describe('ExampleModel', () => {
     model = new ExampleModel()
   })
 
-  describe('#vertices', () => {
+describe('#vertices', () => {
     it('has seven points', () => {
       expect(model.vertices().length).toBe(7)
     })
